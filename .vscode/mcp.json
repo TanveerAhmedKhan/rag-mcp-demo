@@ -1,0 +1,49 @@
+{
+	"inputs": [
+		{
+			"type": "promptString",
+			"id": "google-api-key",
+			"description": "Google AI API Key (get from https://ai.google.dev/)",
+			"password": true
+		},
+		{
+			"type": "promptString",
+			"id": "pinecone-api-key",
+			"description": "Pinecone API Key (get from https://app.pinecone.io/)",
+			"password": true
+		},
+		{
+			"type": "promptString",
+			"id": "pinecone-environment",
+			"description": "Pinecone Environment (e.g., us-west1-gcp, us-east1-gcp)",
+			"default": "us-west1-gcp"
+		},
+		{
+			"type": "promptString",
+			"id": "pinecone-index-name",
+			"description": "Pinecone Index Name",
+			"default": "rag-documents"
+		}
+	],
+	"servers": {
+    "rag-mcp-server": {
+      "type": "stdio",
+      "command": "cmd",
+      "args": ["/c", ".venv\\Scripts\\activate && python -m rag_mcp_server.main"],
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "GOOGLE_API_KEY": "${input:google-api-key}",
+        "PINECONE_API_KEY": "${input:pinecone-api-key}",
+        "PINECONE_ENVIRONMENT": "${input:pinecone-environment}",
+        "PINECONE_INDEX_NAME": "${input:pinecone-index-name}",
+        "MCP_SERVER_NAME": "rag-mcp-server",
+        "LOG_LEVEL": "INFO",
+        "CHUNK_SIZE": "1000",
+        "CHUNK_OVERLAP": "200",
+        "MAX_CHUNKS_PER_DOCUMENT": "100",
+        "EMBEDDING_MODEL": "gemini-embedding-001",
+        "LLM_MODEL": "gemini-2.0-flash"
+      }
+    }
+  }
+}
