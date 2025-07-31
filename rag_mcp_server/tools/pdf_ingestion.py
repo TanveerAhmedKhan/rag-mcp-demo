@@ -17,14 +17,14 @@ gemini_service = GeminiService()
 pinecone_service = PineconeService()
 
 
-async def upload_pdf(file_path: str, document_id: str, chunking_strategy: str = "sliding_window") -> str:
+async def upload_pdf(file_path: str, document_id: str, chunking_strategy: str = "recursive") -> str:
     """
     Upload and process PDF document into vector database.
     
     Args:
         file_path: Path to the PDF file to process
         document_id: Unique identifier for the document
-        chunking_strategy: Text chunking strategy ('sliding_window', 'sentence_aware', 'paragraph_aware')
+        chunking_strategy: Text chunking strategy ('recursive', 'sliding_window', 'sentence_aware', 'paragraph_aware')
     
     Returns:
         Status message indicating success or failure
